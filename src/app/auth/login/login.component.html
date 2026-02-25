@@ -1,0 +1,43 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <h1>Iniciar sesión</h1>
+    <p>Ingresá con tu cuenta para continuar.</p>
+
+    <form class="grid" [formGroup]="form" (ngSubmit)="ingresar()">
+      <div class="field">
+        <label>Email</label>
+        <input class="input" type="email" formControlName="email" placeholder="mail@ejemplo.com" />
+        <div class="error">
+          <span *ngIf="form.get('email')?.touched && form.get('email')?.hasError('required')">Debe ingresar el correo
+            electronico</span>
+          <span *ngIf="form.get('email')?.touched && form.get('email')?.hasError('email')">Ingrese un correo
+            válido</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Contraseña</label>
+        <input class="input" type="password" formControlName="password" placeholder="••••••••" />
+        <div class="error">
+          <span *ngIf="form.get('password')?.touched && form.get('password')?.hasError('required')">Debe ingresar la
+            contraseña</span>
+          <span *ngIf="form.get('password')?.touched && form.get('password')?.hasError('minlength')">Debe ingresar al
+            menos 6 caracteres</span>
+        </div>
+      </div>
+
+      <button class="btn primary" type="submit" [disabled]="form.invalid">Ingresar</button>
+
+      <div class="error" *ngIf="formMsg">
+        <span>{{ formMsg }}</span>
+      </div>
+    </form>
+
+    <div class="links">
+      <span>¿No tenés cuenta?</span>
+      <a [routerLink]="['/register', rol.toLowerCase()]">Registrate</a>
+    </div>
+
+    <a class="back" [routerLink]="['/']">← Volver</a>
+  </div>
+</div>

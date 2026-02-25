@@ -1,0 +1,242 @@
+.cart-page{
+  width: min(1100px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 24px 0;
+}
+
+.cart-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.cart-header h1{
+  margin: 0;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.cart-header p{
+  margin: 6px 0 0;
+  color: #4b5563;
+  font-weight: 600;
+}
+
+.back-link{
+  color: #086dae;
+  text-decoration: none;
+  font-weight: 900;
+}
+.back-link:hover{ text-decoration: underline; }
+
+.empty{
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 10px 24px rgba(0,0,0,.10);
+  padding: 18px;
+}
+.empty h3{ margin: 0 0 6px; }
+.empty p{ margin: 0 0 12px; color: #4b5563; }
+
+.cart-grid{
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 16px;
+  align-items: start;
+}
+
+.cart-list{
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 10px 24px rgba(0,0,0,.10);
+  overflow: hidden;
+}
+
+.list-head{
+  display: grid;
+  grid-template-columns: 1.6fr .7fr .9fr .8fr 44px;
+  gap: 12px;
+  padding: 14px 16px;
+  font-weight: 900;
+  color: rgba(0,0,0,.65);
+  background: rgba(8,109,174,.06);
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+
+.row{
+  display: grid;
+  grid-template-columns: 1.6fr .7fr .9fr .8fr 44px;
+  gap: 12px;
+  padding: 14px 16px;
+  align-items: center;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+.row:last-child{ border-bottom: 0; }
+
+.prod-title{
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+}
+
+.prod-desc{
+  margin-top: 4px;
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.price{
+  font-weight: 800;
+  color: rgba(0,0,0,.75);
+}
+
+.strong{
+  color: #15803d;
+}
+
+.right{ text-align: right; }
+.center{ text-align: center; }
+
+.qty{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.qty-btn{
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.14);
+  background: #fff;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.qty-val{
+  min-width: 22px;
+  font-weight: 900;
+}
+
+.trash{
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  border: 1px solid rgba(225,29,72,.22);
+  background: rgba(225,29,72,.10);
+  cursor: pointer;
+}
+.trash:hover{ background: rgba(225,29,72,.16); }
+
+.cart-summary{
+  position: sticky;
+  top: 160px;
+  display: grid;
+  gap: 12px;
+}
+
+.summary-card, .pay-card{
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 10px 24px rgba(0,0,0,.10);
+  padding: 16px;
+}
+
+.sum-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 900;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  margin-bottom: 12px;
+}
+
+.btn{
+  height: 46px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  font-weight: 900;
+  width: 100%;
+}
+
+.btn.primary{
+  background: #28a745;
+  color: #fff;
+  box-shadow: 0 14px 24px rgba(40,167,69,.20);
+}
+
+.btn.danger{
+  background: #e11d48;
+  color: #fff;
+  box-shadow: 0 14px 24px rgba(225,29,72,.16);
+}
+
+.btn:disabled{
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.pay-card h3{
+  margin: 0 0 10px;
+}
+
+.pay-form{
+  display: grid;
+  gap: 12px;
+}
+
+.field{
+  display: grid;
+  gap: 6px;
+}
+
+.field label{
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.field input{
+  height: 44px;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,.14);
+  padding: 0 14px;
+  outline: none;
+}
+
+.field input:focus{
+  border-color: rgba(8,109,174,.6);
+  box-shadow: 0 0 0 4px rgba(8,109,174,.14);
+}
+
+.error{
+  color: #e11d48;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 980px){
+  .cart-grid{ grid-template-columns: 1fr; }
+  .cart-summary{ position: relative; top: auto; }
+
+  .list-head{ display: none; }
+  .row{
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .right, .center{ text-align: left; }
+  .qty{ justify-content: flex-start; }
+}

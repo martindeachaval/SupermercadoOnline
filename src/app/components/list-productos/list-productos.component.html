@@ -1,0 +1,89 @@
+<div class="products-wrap">
+  <div class="product-list">
+    <article class="product-card" *ngFor="let item of productos">
+
+      <!-- HEADER: título + descripción -->
+      <header class="product-header">
+        <!-- Título clickable en user -->
+        <ng-container *ngIf="isUserRoute || isProdCatRoute; else adminTitle">
+          <a class="product-link">
+            <span class="prod-name">{{ item.producto }}</span>
+            <span class="dot">•</span>
+            <span class="prod-brand">{{ item.marca }}</span>
+          </a>
+        </ng-container>
+
+        <!-- Título no clickable en admin -->
+        <ng-template #adminTitle>
+          <div class="product-link no-link">
+            <span class="prod-name">{{ item.producto }}</span>
+            <span class="dot">•</span>
+            <span class="prod-brand">{{ item.marca }}</span>
+          </div>
+        </ng-template>
+
+        <!-- Descripción solo si existe -->
+        <p class="product-description" *ngIf="item.descripcion">
+          {{ item.descripcion }}
+        </p>
+      </header>
+
+      <!-- IMAGEN -->
+      <div class="product-img" *ngIf="item.imagenUrl; else noImg">
+        <img [src]="item.imagenUrl" [alt]="(item.producto || 'Producto') + ' ' + (item.marca || '')" loading="lazy" />
+      </div>
+
+      <ng-template #noImg>
+        <div class="product-img placeholder">
+          <span class="material-icons">image</span>
+          <span>Sin imagen</span>
+        </div>
+      </ng-template>
+
+      <!-- BOTTOM: precio + acciones (siempre abajo) -->
+      <div class="product-bottom">
+
+        <div class="product-price">
+          <span class="new-price">{{ item.precio | currency }}</span>
+        </div>
+
+        <!-- Acciones USER -->
+        <div class="acciones" *ngIf="isUserRoute || isProdCatRoute">
+          <div class="cantidad-seleccion">
+            <button type="button" (click)="decrementarCantidad(item)" class="cantidad-btn"
+              aria-label="Restar">−</button>
+
+            <input class="cantidad-input" type="number" [(ngModel)]="item.cantidad" min="1" inputmode="numeric"
+              (change)="verificarCantidad(item)" aria-label="Cantidad" />
+
+            <button type="button" (click)="incrementarCantidad(item)" class="cantidad-btn" aria-label="Sumar">+</button>
+          </div>
+
+          <button *ngIf="(item.stock ?? 0) > 0; else sinStock" type="button"
+            (click)="agregarAlCarrito(item, item.cantidad ?? 1)" class="agregar-carrito-btn"
+            [disabled]="(item.cantidad ?? 1) < 1">
+            Agregar al carrito
+          </button>
+
+          <!-- Botón cuando NO hay stock -->
+          <ng-template #sinStock>
+            <button type="button" class="agregar-carrito-btn no-stock" disabled>
+              No hay stock
+            </button>
+          </ng-template>
+
+          <div class="error" *ngIf="uiMsg && uiMsgId === item.id">
+            <span>{{ uiMsg }}</span>
+          </div>
+        </div>
+
+        <!-- Acciones ADMIN -->
+        <div class="acciones-admin" *ngIf="!isUserRoute && !isProdCatRoute">
+          <a class="admin-edit" [routerLink]="['/admin/update-productos', item.id]">Editar</a>
+          <button type="button" class="admin-delete" (click)="eliminarProducto(item.id)">Eliminar</button>
+        </div>
+
+      </div>
+    </article>
+  </div>
+</div>

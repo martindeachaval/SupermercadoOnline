@@ -1,0 +1,159 @@
+<div class="add-page">
+    <div class="card">
+        <div class="card-header">
+            <h1>Agregar producto</h1>
+            <p>Completá los datos para dar de alta un producto en el sistema.</p>
+        </div>
+
+        <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+            <div class="grid">
+                <!-- CATEGORÍA -->
+                <div class="field span-4">
+                    <!--field es la base y despues trabajo con @media aplica a todos los atributos del obj-->
+                    <label for="categoria">Categoría</label>
+                    <select id="categoria" formControlName="categoria" (change)="onCategoriaChange()">
+                        <option value="" disabled>Selecciona una categoría</option>
+                        <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
+                    </select>
+
+                    <div class="error">
+                        <span *ngIf="form.get('categoria')?.touched && form.get('categoria')?.hasError('required')">Debe
+                            seleccionar una opcion</span>
+                    </div>
+                </div>
+
+                <!-- PRODUCTO -->
+                <div class="field span-4">
+                    <label for="producto">Producto</label>
+                    <select id="producto" formControlName="producto" (change)="onProductoChange()">
+                        <option value="" disabled>Selecciona un producto</option>
+                        <option *ngFor="let producto of productos" [value]="producto">{{ producto }}</option>
+                    </select>
+
+                    <div class="error">
+                        <span *ngIf="form.get('producto')?.touched && form.get('producto')?.hasError('required')">Debe
+                            ingresar el nombre</span>
+
+                    </div>
+                </div>
+
+                <!-- MARCA -->
+                <div class="field span-4">
+                    <label for="marca">Marca</label>
+                    <select id="marca" formControlName="marca">
+                        <option value="" disabled>Selecciona una marca</option>
+                        <option *ngFor="let marca of marcas" [value]="marca">{{ marca }}</option>
+                    </select>
+
+                    <div class="error">
+                        <span *ngIf="form.get('marca')?.touched && form.get('marca')?.hasError('required')">Debe
+                            ingresar la marca del producto</span>
+                    </div>
+                </div>
+
+                <!-- PESO -->
+                <div class="field span-4">
+                    <label for="peso">Peso</label>
+                    <input type="number" id="peso" formControlName="peso" placeholder="Gramos / Litros">
+
+                    <div class="error">
+                        <span *ngIf="form.get('peso')?.touched && form.get('peso')?.hasError('required')">Debe ingresar
+                            el peso del producto</span>
+                        <span *ngIf="form.get('peso')?.touched && form.get('peso')?.hasError('min')">Debe ingresar un
+                            peso válido</span>
+                    </div>
+
+
+                </div>
+                <!-- PRECIO -->
+                <div class="field span-4">
+                    <label for="precio">Precio</label>
+                    <input type="number" id="precio" formControlName="precio" placeholder="Ej: 1500">
+
+                    <div class="error">
+                        <span *ngIf="form.get('precio')?.touched && form.get('precio')?.hasError('required')">Debe
+                            ingresar el precio del producto</span>
+                        <span *ngIf="form.get('precio')?.touched && form.get('precio')?.hasError('min')">Debe ingresar
+                            un precio válido</span>
+                    </div>
+                </div>
+
+                <!-- STOCK -->
+                <div class="field span-4">
+                    <label for="stock">Stock</label>
+                    <input type="number" id="stock" formControlName="stock" placeholder="Ej: 20">
+
+                    <div class="error">
+                        <span *ngIf="form.get('stock')?.touched && form.get('stock')?.hasError('required')">Debe
+                            ingresar el stock del producto</span>
+                        <span *ngIf="form.get('stock')?.touched && form.get('stock')?.hasError('min')">Debe ingresar un
+                            stock válido</span>
+                    </div>
+                </div>
+
+                <!-- DESCRIPCIÓN -->
+                <div class="field span-12"> <!--Aca les cambio la disposicion a 12-->
+                    <label for="descripcion">Descripción</label>
+                    <input type="text" id="descripcion" formControlName="descripcion" placeholder="Opcional">
+
+                    <div class="error">
+                        <span *ngIf="form.get('descripcion')?.hasError('maxlength')">Alcanzó el máximo de
+                            carácteres</span>
+                    </div>
+                </div>
+
+                <!-- IMAGEN -->
+                <div class="field span-12">
+                    <label>Imagen</label>
+
+                    <div class="uploader">
+                        <input #fileInput class="file-input" type="file" accept="image/png,image/jpeg,image/webp"
+                            (change)="onFileSelected($event)" />
+
+                        <button type="button" class="btn secondary" (click)="fileInput.click()" [disabled]="subiendo">
+                            <!--Event binding de angular para abrir la ventana de elegir archivo-->
+                            Seleccionar imagen
+                        </button>
+
+                        <div class="file-meta">
+                            <span class="file-name">
+                                {{ selectedFile?.name || 'Ningún archivo seleccionado' }}
+                            </span>
+
+                            <button type="button" class="link danger" *ngIf="selectedFile && !subiendo"
+                                (click)="clearImage(fileInput)">
+                                Quitar
+                            </button>
+
+                            <span class="uploading" *ngIf="subiendo">Subiendo…</span>
+                        </div>
+                    </div>
+
+                    <small class="help">Formatos: JPG/PNG/WebP. Máx 5MB.</small>
+
+                    <div class="img-preview" *ngIf="previewUrl">
+                        <img [src]="previewUrl" alt="Vista previa" />
+                        <!--Traigo la url de la img para hacer la vista previa-->
+                    </div>
+
+                    <div class="error" *ngIf="imgError">
+                        <span>{{ imgError }}</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn primary" [disabled]="form.invalid || subiendo">
+                    {{ subiendo ? 'Subiendo…' : 'Guardar producto' }}
+                </button>
+            </div>
+
+            <!-- Mensaje general (reemplaza alerts) -->
+            <div class="errorM" *ngIf="formMsg">
+                <span>{{ formMsg }}</span>
+            </div>
+        </form>
+    </div>
+</div>

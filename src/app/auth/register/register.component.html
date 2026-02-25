@@ -1,0 +1,70 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <h1>Crear cuenta</h1>
+    <p>Completá tus datos para registrarte.</p>
+
+    <form class="grid" [formGroup]="form" (ngSubmit)="registrar()">
+      <div class="field">
+        <label>Nombre</label>
+        <input class="input" type="text" formControlName="nombre" placeholder="Tu nombre" />
+        <div class="error">
+          <span *ngIf="form.get('nombre')?.touched && form.get('nombre')?.hasError('required')">Debe ingresar un
+            nombre</span>
+          <span *ngIf="form.get('nombre')?.touched && form.get('nombre')?.hasError('minlength')">El nombre debe tener al
+            menos 3 caracteres</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Email</label>
+        <input class="input" type="email" formControlName="email" placeholder="mail@ejemplo.com" />
+        <div class="error">
+          <span *ngIf="form.get('email')?.touched && form.get('email')?.hasError('required')">Debe ingresar un correo
+            electronico</span>
+          <span *ngIf="form.get('email')?.touched && form.get('email')?.hasError('email')">Debe ingresar un correo
+            válido</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Contraseña</label>
+        <input class="input" type="password" formControlName="password" placeholder="••••••••" />
+        <div class="error">
+          <span *ngIf="form.get('password')?.touched && form.get('password')?.hasError('required')">Debe ingresar la
+            contraseña</span>
+          <span *ngIf="form.get('password')?.touched && form.get('password')?.hasError('minlength')">Debe ingresar al
+            menos 4 caracteres</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Repetir contraseña</label>
+        <input class="input" type="password" formControlName="confirmPassword" placeholder="••••••••" />
+
+        <div class="error">
+          <span *ngIf="form.get('confirmPassword')?.touched && form.get('confirmPassword')?.hasError('required')">
+            Debe repetir la contraseña
+          </span>
+
+          <span *ngIf="form.get('confirmPassword')?.touched && form.get('confirmPassword')?.hasError('noCoincide')">
+            Las contraseñas no coinciden
+          </span>
+
+        </div>
+      </div>
+
+      <button class="btn primary" type="submit" [disabled]="form.invalid">Registrarme</button>
+
+      <div class="errorM" *ngIf="formMsg">
+        <span>{{ formMsg }}</span>
+      </div>
+    </form>
+
+    <div class="links">
+      <span>¿Ya tenés cuenta?</span>
+      <a [routerLink]="['/login', rol.toLowerCase()]">Iniciá sesión</a>
+    </div>
+
+    <a class="back" [routerLink]="['/']">← Volver</a>
+  </div>
+</div>

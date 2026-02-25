@@ -1,0 +1,94 @@
+.auth-page{
+  padding: 28px 16px;
+  display: grid;
+  place-items: center;
+  min-height: calc(100vh - 180px);
+}
+
+.auth-card{
+  width: min(520px, 100%);
+  background: #fff;
+  border-radius: 22px;
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 16px 40px rgba(0,0,0,.12);
+  padding: 22px;
+}
+
+.auth-card h1{
+  margin: 0 0 6px;
+  font-size: 30px;
+  font-weight: 900;
+}
+.auth-card p{
+  margin: 0 0 16px;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.grid{ display: grid; gap: 12px; }
+
+.field{ display: grid; gap: 6px; }
+.field label{
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.input{
+  height: 44px;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,.14);
+  padding: 0 14px;
+  outline: none;
+}
+.input:focus{
+  border-color: rgba(8,109,174,.6);
+  box-shadow: 0 0 0 4px rgba(8,109,174,.14);
+}
+
+.btn{
+  height: 46px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  font-weight: 900;
+}
+.btn.primary{
+  background: #086dae;
+  color: #fff;
+  box-shadow: 0 14px 24px rgba(8,109,174,.28);
+}
+.btn:disabled{ opacity: .6; cursor: not-allowed; }
+
+.links{
+  margin-top: 14px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  color: #475569;
+  font-weight: 700;
+}
+.links a{
+  color: #086dae;
+  text-decoration: none;
+  font-weight: 900;
+}
+.links a:hover{ text-decoration: underline; }
+
+.back{
+  display: inline-block;
+  margin-top: 14px;
+  color: #086dae;
+  text-decoration: none;
+  font-weight: 900;
+}
+.back:hover{ text-decoration: underline; }
+
+.error{
+  min-height: 16px;
+  margin-top: 6px;
+  color: #b00020;
+  font-size: 12px;
+}

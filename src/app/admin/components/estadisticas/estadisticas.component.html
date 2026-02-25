@@ -1,0 +1,62 @@
+<div class="page">
+  <div class="head">
+    <h1>Estadísticas de ventas</h1>
+    <p class="muted">Resumen general del sistema</p>
+  </div>
+
+  <div *ngIf="ventas.length === 0" class="muted">
+    No hay ventas registradas
+  </div>
+
+  <ng-container *ngIf="ventas.length > 0">
+
+    <div class="grid">
+      <div class="card">
+        <div class="label">Total facturado</div>
+        <div class="value">{{ totalFacturado | currency }}</div>
+      </div>
+
+      <div class="card">
+        <div class="label">Ventas</div>
+        <div class="value">{{ cantidadVentas }}</div>
+      </div>
+
+      <div class="card">
+        <div class="label">Ticket promedio</div>
+        <div class="value">{{ ticketPromedio | currency }}</div>
+      </div>
+    </div>
+
+    <div class="card table-card">
+      <h2>Top productos</h2>
+
+      <table *ngIf="topProductos.length > 0; else sinTopTpl">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Marca</th>
+            <th>Cantidad</th>
+            <th>Facturado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of topProductos">
+            <td>{{ p.producto }}</td>
+            <td>{{ p.marca || '-' }}</td>
+            <td>{{ p.cantidad }}</td>
+            <td>{{ p.facturado | currency }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #sinTopTpl>
+        <div class="muted">
+          No hay datos suficientes para mostrar el top de productos.
+        </div>
+      </ng-template>
+
+    </div>
+
+  </ng-container>
+</div>
+

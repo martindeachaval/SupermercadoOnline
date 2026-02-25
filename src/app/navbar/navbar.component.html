@@ -1,0 +1,99 @@
+<div class="navbar-contenedor">
+  <header class="header">
+    <!-- Brand: si rolActual es null, cae a 'user' -->
+    <a class="brand" [routerLink]="['/', (rolActual || 'user').toLowerCase()]">
+      <img class="brand-logo" src="assets/images/logoSuper.png" alt="Logo" />
+      <span class="brand-name">superOnline</span>
+    </a>
+
+    <!-- Buscador (user/products y admin) -->
+    <div class="search-wrap" *ngIf="isUserRoute || isProdCatRoute || isAdminRoute">
+      <input #buscador type="search" class="search" placeholder="Buscar productos…"
+        (input)="onBuscar(buscador.value)" />
+    </div>
+
+    <div class="actions">
+      <!-- Carrito (solo sección user) -->
+      <a class="icon-btn" *ngIf="isUserRoute || isProdCatRoute" [routerLink]="['/user/carrito']" title="Carrito">
+        <span class="material-icons">shopping_cart</span>
+      </a>
+
+      <!-- Usuario (nombre + menú) SOLO si está logueado -->
+      <ng-container *ngIf="currentUser as u">
+        <button type="button" class="user-chip" (click)="toggleMenu($event)">
+          <span class="avatar">{{ initials }}</span>
+
+          <span class="user-info">
+            <span class="user-name">{{ u.nombre }}</span>
+            <span class="user-role">{{ rolActual || '' }}</span>
+          </span>
+
+          <span class="material-icons caret">expand_more</span>
+        </button>
+
+        <!-- Menú desplegable -->
+        <div class="user-menu" *ngIf="menuOpen" (click)="$event.stopPropagation()">
+
+          <!-- SOLO USER -->
+          <a class="menu-item" *ngIf="rolActual?.toLowerCase() === 'user'" [routerLink]="['/user/historial']"
+            (click)="menuOpen = false">
+            Mis compras
+          </a>
+
+          <!-- SOLO ADMIN -->
+          <a class="menu-item" *ngIf="rolActual?.toLowerCase() === 'admin'" [routerLink]="['/admin/estadisticas']"
+            (click)="menuOpen = false">
+            Estadísticas de ventas
+          </a>
+
+          <button type="button" class="menu-item danger" (click)="logout(); menuOpen = false">
+            Cerrar sesión
+          </button>
+        </div>
+      </ng-container>
+    </div>
+  </header>
+
+  <!-- Categorías (user/products y admin) -->
+  <div class="categorias-contenedor" *ngIf="isUserRoute || isProdCatRoute || isAdminRoute">
+    <div class="categorias-list">
+
+      <!-- IMPORTANTE: acá también uso fallback para que no quede undefined -->
+      <a class="categoria" [routerLink]="['/', (rolActual || 'user').toLowerCase(), 'productos', 'congelados']">
+        <img class="cat-img" src="assets/images/congelados.png" alt="Congelados">
+        <span class="cat-label">Congelados</span>
+      </a>
+
+      <a class="categoria" [routerLink]="['/', (rolActual || 'user').toLowerCase(), 'productos', 'panificados']">
+        <img class="cat-img" src="assets/images/panificados.png" alt="Panificados">
+        <span class="cat-label">Panificados</span>
+      </a>
+
+      <a class="categoria" [routerLink]="['/', (rolActual || 'user').toLowerCase(), 'productos', 'limpieza']">
+        <img class="cat-img" src="assets/images/limpieza.png" alt="Limpieza">
+        <span class="cat-label">Limpieza</span>
+      </a>
+
+      <a class="categoria" [routerLink]="['/', (rolActual || 'user').toLowerCase(), 'productos', 'bebidas-S-A']">
+        <img class="cat-img" src="assets/images/bebidass-a.png" alt="Bebidas">
+        <span class="cat-label">Bebidas S/A</span>
+      </a>
+
+      <a class="categoria" [routerLink]="['/', (rolActual || 'user').toLowerCase(), 'productos', 'lacteos-y-frescos']">
+        <img class="cat-img" src="assets/images/lacteosyfrescos.png" alt="Lácteos">
+        <span class="cat-label">Lácteos</span>
+      </a>
+
+      <a class="categoria" [routerLink]="['/', (rolActual || 'user').toLowerCase(), 'productos', 'verduleria']">
+        <img class="cat-img" src="assets/images/verduleria.png" alt="Verdulería">
+        <span class="cat-label">Verdulería</span>
+      </a>
+
+      <a class="categoria" [routerLink]="['/', (rolActual || 'user').toLowerCase(), 'productos', 'almacen']">
+        <img class="cat-img" src="assets/images/almacen.png" alt="Almacén">
+        <span class="cat-label">Almacén</span>
+      </a>
+
+    </div>
+  </div>
+</div>

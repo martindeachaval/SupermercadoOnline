@@ -1,0 +1,40 @@
+.page{
+  width: min(1100px, calc(100% - 40px));
+  margin: 24px auto 60px;
+}
+
+.head h1{ margin:0; font-size: 28px; }
+.muted{ margin:8px 0 0; opacity:.75; }
+
+.grid{
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.card{
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+}
+
+.label{ opacity:.7; font-weight: 800; }
+.value{ font-size: 22px; font-weight: 900; margin-top: 6px; }
+
+.table-card{ margin-top: 14px; }
+.table-card h2{ margin: 0 0 10px; }
+
+table{ width:100%; border-collapse: collapse; }
+th, td{
+  padding: 10px 6px;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  text-align: left
+}
+th{ font-weight: 900; }
+
+@media (max-width: 900px){
+  .grid{ grid-template-columns: 1fr; }
+}

@@ -1,0 +1,113 @@
+<div class="edit-page">
+    <div class="card">
+        <div class="card-header">
+            <h1>Editar producto</h1>
+            <p>Actualizá los datos del producto seleccionado.</p>
+        </div>
+
+        <form class="form" [formGroup]="form" (ngSubmit)="update()">
+            <div class="grid">
+
+                <!-- CATEGORIA -->
+                <div class="field span-4">
+                    <label for="categoria">Categoría</label>
+                    <input id="categoria" formControlName="categoria" />
+                </div>
+
+                <!-- PRODUCTO -->
+                <div class="field span-4">
+                    <label for="producto">Producto</label>
+                    <input id="producto" formControlName="producto" />
+                </div>
+
+                <!-- MARCA -->
+                <div class="field span-4">
+                    <label for="marca">Marca</label>
+                    <input id="marca" formControlName="marca" />
+                </div>
+
+                <!-- PESO -->
+                <div class="field span-4">
+                    <label for="peso">Peso</label>
+                    <input type="number" id="peso" formControlName="peso" placeholder="Gramos / Litros" />
+
+                    <div class="error">
+                        <span *ngIf="form.get('peso')?.touched && form.get('peso')?.hasError('required')">Debe ingresar
+                            el peso del producto</span>
+                        <span *ngIf="form.get('peso')?.touched && form.get('peso')?.hasError('min')">Debe ingresar un
+                            peso válido</span>
+                    </div>
+                </div>
+
+                <!-- PRECIO -->
+                <div class="field span-4">
+                    <label for="precio">Precio</label>
+                    <input type="number" id="precio" formControlName="precio" placeholder="Ej: 1500" />
+
+                    <div class="error">
+                        <span *ngIf="form.get('precio')?.touched && form.get('precio')?.hasError('required')">Debe
+                            ingresar el precio del producto</span>
+                        <span *ngIf="form.get('precio')?.touched && form.get('precio')?.hasError('min')">Debe ingresar
+                            un precio válido</span>
+                    </div>
+                </div>
+
+                <!-- STOCK -->
+                <div class="field span-4">
+                    <label for="stock">Stock</label>
+                    <input type="number" id="stock" formControlName="stock" placeholder="Ej: 20" />
+
+                    <div class="error">
+                        <span *ngIf="form.get('stock')?.touched && form.get('stock')?.hasError('required')">Debe
+                            ingresar el stock del producto</span>
+                        <span *ngIf="form.get('stock')?.touched && form.get('stock')?.hasError('min')">Debe ingresar un
+                            stock válido</span>
+                    </div>
+                </div>
+
+                <!-- DESCRIPCIÓN -->
+                <div class="field span-12">
+                    <label for="descripcion">Descripción</label>
+                    <input type="text" id="descripcion" formControlName="descripcion" placeholder="Opcional" />
+
+                    <div class="error">
+                        <span *ngIf="form.get('descripcion')?.hasError('maxlength')">Alcanzó el máximo de
+                            carácteres</span>
+                    </div>
+                </div>
+
+                <!-- IMAGEN -->
+                <div class="field span-12">
+                    <label>Imagen</label>
+
+                    <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" />
+
+                    <!-- Preview (si ya tenía imagen, la vas a ver cuando cargue el producto) -->
+                    <div class="img-preview" *ngIf="previewUrl">
+                        <img [src]="previewUrl" alt="Preview" />
+                        <button type="button" class="btn danger" (click)="clearImage(fileInput)">
+                            Quitar
+                        </button>
+                    </div>
+
+                    <div class="error" *ngIf="imgError">
+                        <span>{{ imgError }}</span>
+                    </div>
+
+                    <span class="help">Formatos: JPG/PNG/WebP. Máx 5MB.</span>
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn primary" [disabled]="form.invalid">
+                    Actualizar
+                </button>
+            </div>
+
+            <div class="errorM" *ngIf="formMsg">
+                <span>{{ formMsg }}</span>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="home-admin">
+  <div class="modo-administrador">
+    <h1>Modo administrador</h1>
+  </div>
+
+  <div *ngIf="this.isAdmin && this.isAdminRoute" class="admin-contenido">
+
+    <div class="admin-mensaje">
+      <div class="admin-mensaje-header">
+        <strong>Bienvenido al panel de administración.</strong>
+      </div>
+
+      <div class="admin-mensaje-body">
+        <span>Selecciona una categoría para comenzar a gestionar los productos.</span><br>
+        <span>Desde ahí podrás:</span>
+        <ul>
+          <li>Eliminar productos</li>
+          <li>Modificar productos</li>
+        </ul>
+        <span>¡Comienza a administrar de manera eficiente!</span>
+      </div>
+    </div>
+
+
+    <div class="admin-boton-addProducto">
+      <a class="admin-boton-texto" [routerLink]="['/admin/add-productos']">
+        Agregar nuevo producto
+      </a>
+
+    </div>
+
+  </div>
+</div>

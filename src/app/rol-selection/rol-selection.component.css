@@ -1,0 +1,76 @@
+.role-body{
+  position: relative;
+  min-height: calc(100vh - 0px);
+  background-size: cover;
+  background-position: center;
+  display: grid;
+  place-items: center;
+  padding: 28px 16px;
+}
+
+.overlay{
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(8,109,174,.25), rgba(0,0,0,.55));
+}
+
+.role-card{
+  position: relative;
+  z-index: 2;
+
+  width: min(520px, 100%);
+  background: rgba(255,255,255,.92);
+  border-radius: 22px;
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 16px 40px rgba(0,0,0,.20);
+  padding: 22px;
+}
+
+.title{
+  margin: 0 0 6px;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: .02em;
+  text-align: center;
+}
+.subtitle{
+  margin: 0 0 18px;
+  color: #4b5563;
+  text-align: center;
+  font-weight: 600;
+}
+
+.buttons{
+  display: grid;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.btn{
+  height: 46px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  font-weight: 900;
+  letter-spacing: .02em;
+  box-shadow: 0 12px 22px rgba(0,0,0,.12);
+}
+.btn.primary{
+  background: #086dae;
+  color: white;
+}
+.btn.dark{
+  background: #0f466b;
+  color: white;
+}
+.btn:active{
+  transform: translateY(1px);
+}
+
+.hint{
+  margin: 14px 0 0;
+  color: #6b7280;
+  font-size: 13px;
+  text-align: center;
+  font-weight: 600;
+}

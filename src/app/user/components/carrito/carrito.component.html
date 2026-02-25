@@ -1,0 +1,153 @@
+<div class="cart-page">
+  <div class="cart-header">
+    <div>
+      <h1>Carrito</h1>
+      <p>Revisá tus productos antes de pagar.</p>
+    </div>
+
+    <a class="back-link" [routerLink]="['/user']">← Seguir comprando</a>
+  </div>
+
+  <!-- Carrito vacío -->
+  <div class="empty" *ngIf="items.length === 0">
+    <h3>No hay productos en el carrito.</h3>
+    <p>Volvé a productos y agregá lo que necesites.</p>
+    <a class="back-link" [routerLink]="['/user']">Volver a la tienda</a>
+  </div>
+
+  <!-- Carrito con items -->
+  <div class="cart-grid" *ngIf="items.length > 0">
+    <!-- Lista -->
+    <section class="cart-list">
+      <div class="list-head">
+        <span>Producto</span>
+        <span class="right">Precio</span>
+        <span class="center">Cantidad</span>
+        <span class="right">Subtotal</span>
+        <span></span>
+      </div>
+
+      <div class="row" *ngFor="let item of items">
+        <div class="prod">
+          <div class="prod-title">{{ item.producto }} - {{ item.marca }}</div>
+          <div class="prod-desc">{{ item.descripcion }}</div>
+        </div>
+
+        <div class="price right">{{ item.precio | currency }}</div>
+
+        <div class="qty center">
+          <button class="qty-btn" (click)="decrementarCantidad(item)">-</button>
+          <span class="qty-val">{{ item.cantidad }}</span>
+          <button class="qty-btn" (click)="incrementarCantidad(item)">+</button>
+        </div>
+
+        <div class="price right strong">
+          {{ (item.precio! * item.cantidad!) | currency }}
+        </div>
+
+        <button class="trash" (click)="eliminarProducto(item.id!)" title="Eliminar">
+          🗑️
+        </button>
+      </div>
+    </section>
+
+    <!-- Resumen -->
+    <aside class="cart-summary">
+      <div class="summary-card">
+        <div class="sum-row">
+          <span>Total</span>
+          <strong>{{ getTotal() | currency }}</strong>
+        </div>
+
+        <button class="btn primary" (click)="mostrarFormulario = true">
+          Pagar
+        </button>
+
+        <button class="btn danger" (click)="vaciarCarrito()">
+          Vaciar carrito
+        </button>
+      </div>
+
+      <div class="error" *ngIf="formMsg">
+        <span>{{ formMsg }}</span>
+      </div>
+
+      <!-- Formulario pago -->
+      <div class="pay-card" *ngIf="mostrarFormulario">
+        <h3>Datos de la tarjeta</h3>
+
+        <form class="pay-form" [formGroup]="form" (ngSubmit)="procesarPago()">
+
+          <div class="field">
+            <label>Nombre en la tarjeta</label>
+            <input type="text" formControlName="nombre" />
+            <div class="error">
+              @if(form.controls['nombre'].getError('maxlength')){ <span>Alcanzó el máximo de caracteres</span> }
+              @if(form.controls['nombre'].getError('required') && form.controls['nombre'].touched){ <span>Ingrese un
+                nombre</span> }
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Número de tarjeta</label>
+            <input type="text" formControlName="numero" />
+            <div class="error">
+              @if(form.controls['numero'].getError('minlength') || form.controls['numero'].getError('maxlength')){
+              <span>Ingrese un número válido (16 dígitos)</span> }
+              @if(form.controls['numero'].getError('required') && form.controls['numero'].touched){ <span>Ingrese el
+                número</span> }
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Vencimiento</label>
+            <div class="exp-row">
+              <input type="text" formControlName="mes" placeholder="MM" inputmode="numeric" maxlength="2" />
+
+              <span class="slash">/</span>
+
+              <input type="text" formControlName="anio" placeholder="YYYY" inputmode="numeric" maxlength="4" />
+            </div>
+
+            <div class="error">
+              @if((form.controls['mes'].touched && form.controls['mes'].hasError('required')) ||
+              (form.controls['anio'].touched && form.controls['anio'].hasError('required'))) {
+              <span>Ingresá mes y año</span>
+              }
+
+              @if(form.controls['mes'].touched && form.controls['mes'].hasError('invalidMonth')) {
+              <span>Mes inválido (1 a 12)</span>
+              }
+
+              @if(form.controls['anio'].touched && form.controls['anio'].hasError('invalidYear')) {
+              <span>Año inválido (4 dígitos)</span>
+              }
+
+              @if((form.controls['mes'].touched || form.controls['anio'].touched) && form.hasError('expired')) {
+              <span>La tarjeta está vencida</span>
+              }
+            </div>
+          </div>
+
+          <div class="field">
+            <label>CVV</label>
+            <input type="password" formControlName="cvv" />
+            <div class="error">
+              @if(form.controls['cvv'].getError('minlength') || form.controls['cvv'].getError('maxlength')){
+              <span>Ingrese un CVV válido</span> }
+              @if(form.controls['cvv'].getError('required') && form.controls['cvv'].touched){ <span>Ingrese el
+                código</span> }
+            </div>
+          </div>
+
+          <button class="btn primary" type="submit" [disabled]="form.invalid">
+            Procesar pago
+          </button>
+        </form>
+        <div class="error" *ngIf="pagoMsg">
+          <span>{{ pagoMsg }}</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="page">
+  <div class="head">
+    <div>
+      <h1>Mis compras</h1>
+      <p class="muted">Historial del usuario logueado</p>
+    </div>
+    <a class="link" routerLink="/user">Volver a productos</a>
+  </div>
+
+  <div *ngIf="cargando" class="muted">Cargando…</div>
+
+  <div *ngIf="!cargando && ventas.length === 0" class="empty">
+    Todavía no tenés compras registradas.
+  </div>
+
+  <div class="list" *ngIf="!cargando && ventas.length > 0">
+    <article class="card" *ngFor="let v of ventas">
+      <div class="row">
+        <div>
+          <div class="date">{{ v.createdAt | date:'dd/MM/yyyy HH:mm' }}</div>
+          <div class="meta">{{ v.items.length }} item(s)</div>
+        </div>
+        <div class="total">{{ v.total | currency }}</div>
+      </div>
+
+      <div class="items">
+        <div class="item" *ngFor="let it of v.items | slice:0:3">
+          {{ it.producto }} <span *ngIf="it.marca">· {{ it.marca }}</span> × {{ it.cantidad }}
+        </div>
+        <div class="more" *ngIf="v.items.length > 3">+ {{ v.items.length - 3 }} más</div>
+      </div>
+
+      <div class="actions">
+        <a class="btn" [routerLink]="['/user/recibo', v.id]">Ver recibo</a>
+      </div>
+    </article>
+  </div>
+</div>

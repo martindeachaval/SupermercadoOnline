@@ -1,0 +1,43 @@
+<div class="page" *ngIf="venta as v">
+  <div class="top no-print">
+    <a routerLink="/user/historial" class="link">← Volver al historial</a>
+    <button class="btn" (click)="imprimir()">Imprimir</button>
+  </div>
+
+  <div class="paper">
+    <div class="title">
+      <h1>Recibo</h1>
+      <div class="muted">Compra #{{ v.id }} · {{ v.createdAt | date:'dd/MM/yyyy HH:mm' }}</div>
+    </div>
+
+    <div class="section">
+      <div><strong>Cliente:</strong> {{ v.userNombre }}</div>
+      <div><strong>Email:</strong> {{ v.userEmail }}</div>
+      <div><strong>Pago:</strong> Tarjeta **** {{ v.tarjetaLast4 }}</div>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cant.</th>
+          <th>Precio</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let it of v.items">
+          <td>{{ it.producto }} <span class="muted" *ngIf="it.marca">· {{ it.marca }}</span></td>
+          <td>{{ it.cantidad }}</td>
+          <td>{{ it.precio | currency }}</td>
+          <td>{{ it.subtotal | currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="total">
+      <span>Total</span>
+      <strong>{{ v.total | currency }}</strong>
+    </div>
+  </div>
+</div>
